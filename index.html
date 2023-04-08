@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inheritance and Prototype</title>
+    <style>
+      body{
+        background-color: rgb(163, 197, 197);
+      }
+    </style>
+</head>
+<body>
+    <h1>Q1. Create 2 objects - parent and child. Attach methods to parent and use those methods in child object using parents prototype
+    </h1>
+    <pre style="color: blue;">
+        const obj={
+            key1: "value1",
+            key2: "value2",
+            key3: "value3",
+            key4:  function(theNewValue){
+              console.log(theNewValue);
+            }
+          }
+          
+          const obj1 = Object.create(obj)
+          
+          obj1.key4("value")
+    </pre>
+    <p></p>
+
+    <h1>Q2. Write code to explain prototype chaining</h1>
+    <pre style="color: blue;">
+      arr = [1,2,3,4];
+      console.log(arr.__proto__.__proto__.__proto__)
+    </pre>
+    <p>The array named arr has prototype chaining as follows: arr -> Oririnal Array -> Original Object -> Null. this figure represents that at first arr.__proto__ gives its prototype then at arr.__proto__.__proto__ gives the protype as object of default array again at 
+      arr.__proto__.__proto__.__proto__ it comes to the default Objects prototype which is null.
+    </p>
+
+    <pre style="color: blue;">
+      class Human {
+        constructor(type,race){
+            this.type=type;
+            this.race=race;
+        }
+        changeName(name){
+            this.name =name;
+        }
+        set setName(name){
+            this.name = name;
+        }
+    }
+        
+    class Male extends Human {
+        constructor(){
+            super("not-kind");
+            this.race = "male"
+        }
+    }
+    
+    console.log(Male.prototype.__proto__.__proto__.__proto__)
+    </pre>
+
+    <p>The output here is null. The Male class is extension of Human class.
+      In console statement we first have Male.prototype that gives the output 
+      prototype of male.for further Male.prototype.__proto__ , this gives the output as protype object for Human class. The continuation of that will be 
+      the Object(the default). And finally Object's protype is null. 
+    </p>
+
+    <h1>Q3. Add a method to calculate sum of all elements in Array in array's protype, use that method to calculate sum for multiple arrays
+    </h1>
+    <pre style="color: blue;">
+      const mainClass ={
+        sum : function(array){
+            let result = 0;
+            for(i=0;i< array.length;i++){
+                result +=array[i];
+            }
+            return result;
+        }
+    }
+    
+    childArray1 = [1,4,3,87,23]
+    childArray2 = [5,282,4,5,6]
+    childArray3 = [7,2,8,11]
+    let final =mainClass.sum(childArray1)+mainClass.sum(childArray2)+mainClass.sum(childArray3);
+    console.log(final)
+    </pre>
+    <p></p>
+
+    <h1>Q4.  Write a JavaScript function to retrieve all the names of object's own and inherited properties.</h1>
+    <pre style="color: blue;">
+      function retrieveNames(obj) {
+        var keys =[];
+        for(var key in obj){
+            keys.push(key)
+        }
+        return keys
+      }
+    
+      function Student(name) {
+        this.name = name;
+      }
+      Student.prototype.rollno = true;
+      console.log(retrieveNames(new Student("Nahid")));
+    </pre>
+    <p></p>
+
+    <script src="./inheri.js"></script>
+</body>
+</html>
